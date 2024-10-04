@@ -1,0 +1,96 @@
+use("mycompany")
+db.employeesinfo.aggregate([
+    {
+        $group: {
+          _id: "$experience",
+          employeeNames :
+            {
+                $push : "$first_name"
+            }
+        }
+    }
+])
+// add whole document
+db.employeesinfo.aggregate([
+    {
+        $group: {
+          _id: "$experience",
+          wholeDocument :
+            {
+                $push : "$$ROOT"
+            }
+        },
+
+        
+    },
+    {
+        $limit :2
+    }
+])
+// if _id =null than everything will grouped in a single document 
+db.employeesinfo.aggregate([
+    {
+        $group: {
+          _id: null,
+          empgender:{
+             $push:"$email"
+          }
+        }
+    }
+])
+// group all the data on basis on gender
+// show number of employees in group
+
+// sort the data on basis of no of emp
+db.employeesinfo.aggregate([
+    {
+        $group: {
+          _id: "$gender",
+          noofemp: {
+             $sum:1
+          }
+        }
+    },
+    {
+        $sort: {
+            noofemp:-1
+
+        }
+    }
+
+])
+
+// [
+//     {
+//       $group: {
+//         _id: "$experience.duration",
+//         userCount:{
+//           $sum:1
+//         }
+      
+//       }
+//     }
+//   ]
+
+// show all person who have habbit of walking
+
+// [
+//     {
+//       $match: {
+//         "Hobbies.0":"Walk"
+//       }
+//     },
+//     {
+//       $count: 'no of people '
+//     }
+ // ]
+
+ // show all user who have habbit of walk as well as cricket
+
+//  [
+//     {
+//       $match: {
+//         Hobbies :{$all:['Walk','Cricket']}
+//       }
+//     }
+//   ]

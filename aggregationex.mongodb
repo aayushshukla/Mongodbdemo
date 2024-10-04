@@ -1,0 +1,43 @@
+use ("mycompany")
+db.getCollectionNames()
+
+// db.collectionname.aggregate(
+//     [
+//       {stage1},
+//       {stage2},
+//       {stage3}
+         
+//     ]
+// )
+//  show all male employees
+// $match  operator
+
+
+// show firstname ,lastname of all the male employess
+
+db.employeesinfo.aggregate(
+    [
+        {
+          $match: {
+            gender :"Male"
+          }
+        },
+        {
+            $project: {
+              id:0,
+              email:0,
+              gender:0,
+              experience:0,
+              
+             
+            }
+        },
+        {
+            $sort: {first_name:-1}
+        },
+
+        {
+            $limit: 5
+        }
+    ]
+)
