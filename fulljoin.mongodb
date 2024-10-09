@@ -1,0 +1,67 @@
+// use("mycompany")
+db.product.aggregate([
+  {
+     $lookup: {
+       from: "inventory",
+       localField: "id",
+       foreignField: "p_id",
+       as: "outerleftjoin"
+     }
+
+  },
+  {
+      $unionWith: {
+        coll: 'inventory',
+        pipeline: [
+            {
+                $lookup: {
+                  from: "product",
+                  localField: "p_id",
+                  foreignField: "id",
+                  as: "outerrightjoin"
+                }
+            }
+        ]
+      }
+  }
+]);
+
+// db.product.bulkWrite(
+//     [
+//         {insertOne: {document:
+//             {
+//                 id:1,
+//                 pname:"Iphone 15",
+//                 company:"Apple"
+//             }
+//         }},
+//         {
+//             insertOne: {document:
+//                 {
+//                     id:2,
+//                     pname:"Iphone 16",
+//                     company:"Apple"
+//                 }
+//             }
+
+//         },
+//         {
+//             insertOne: {document:
+//                 {
+//                     id:3,
+//                     pname:"Samsung s23",
+//                     company:"Samsung"
+//                 }
+//             }
+//         },
+//         {
+//             updateOne:
+//              {
+//                filter: {pname:"Iphone 16"},
+//                update:  {$set:{pname:"Iphone 16 pro"}}
+//              }
+//         }
+//     ]
+// )
+
+db.product.find().skip(db.product.count()-1)

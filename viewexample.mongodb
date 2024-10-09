@@ -1,0 +1,42 @@
+// creating view  db.createView()  db.createCollection()
+
+// view should be in same database
+// view can not be rename 
+use("mycompany")
+db.createView(
+    "paytmempview", // view name
+    // collection name for which view need to created
+    "person",
+    //[pipeline]
+   [
+       {
+         $match: {
+            "experience.company":"Paytm"
+         }
+       }
+    ],
+    // collation specify language specific rules 
+)
+// //fetch from view db.viewname.find()
+ db.paytmempview.find({},{_id:0})
+// remove view db.viewname.drop()
+ db.paytmempview.drop()
+// Modify view 
+db.runCommand(
+    {
+        collMod:"paytmempview", // view name to modify
+     
+      "pipeline":  [
+            {
+                $match: {
+                  "experience.company":"Spotify"
+                }
+            }
+        ]
+
+    }
+
+
+)
+
+db.paytmempview.find({},{_id:0})

@@ -1,0 +1,33 @@
+use("mycompany")
+// left outer join
+db.product.aggregate([
+  {
+     $lookup: {
+       from: "inventory",
+       localField: "id",
+       foreignField: "p_id",
+       as: "outjoinresults"
+     }
+
+  }
+
+])// try right join 
+// inner join
+db.product.aggregate([
+      {
+         $lookup: {
+           from: "inventory",
+           localField: "id",
+           foreignField: "p_id",
+           as: "outjoinresults"
+         }
+    
+      },
+       {
+        $match: {
+          "outjoinresults":{$ne:[]}
+        }
+       }
+    
+    
+    ])

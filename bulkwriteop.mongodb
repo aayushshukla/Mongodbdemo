@@ -1,0 +1,167 @@
+use ("mycompany")
+//db.createCollection("product");
+//db.createCollection("inventory");
+
+// db.product.bulkWrite(
+//     [
+//         {insertOne: {document:
+//             {
+//                 id:1,
+//                 pname:"Iphone 15",
+//                 company:"Apple"
+//             }
+//         }},
+//         {
+//             insertOne: {document:
+//                 {
+//                     id:2,
+//                     pname:"Iphone 16",
+//                     company:"Apple"
+//                 }
+//             }
+
+//         },
+//         {
+//             insertOne: {document:
+//                 {
+//                     id:3,
+//                     pname:"Samsung s23",
+//                     company:"Samsung"
+//                 }
+//             }
+//         },
+//         {
+//             updateOne:
+//              {
+//                filter: {pname:"Iphone 16"},
+//                update:  {$set:{pname:"Iphone 16 pro"}}
+//              }
+//         }
+//     ]
+// )
+
+// db.product.find()
+
+db.inventory.bulkWrite([
+    {
+        insertOne:
+          {
+            document:{
+                invid:101,
+                p_id :1,
+                quantity:10,
+                price:55000
+            }
+          }
+    },
+
+    {
+        insertOne:
+          {
+            document:{
+                invid:102,
+                p_id :2,
+                quantity:15,
+                price:75000
+            }
+          }
+    },
+    {
+        insertOne:
+          {
+            document:{
+                invid:103,
+                p_id :5,
+                quantity:20,
+                price:95000
+            }
+          }
+    },
+    {
+        insertOne:
+          {
+            document:{
+                invid:104,
+                p_id :7,
+                quantity:10,
+                price:95000
+            }
+          }
+    },
+
+    {
+        deleteOne:
+          {
+             filter : {invid:104}
+          }
+    },
+    {
+        replaceOne:
+          {
+            filter :{invid:103},
+            replacement :
+              {
+                p_id:5,
+                quantity:45,
+                price:95000,
+                discount:20000
+              }
+          }
+    }
+]);
+
+
+// db.inventory.find()
+try{
+    db.inventory.bulkWrite([
+           {
+                insertOne:
+                  {
+                    document:{
+                        invid:109,
+                        p_id :8,
+                        quantity:10,
+                        price:95000
+                    }
+                  }
+            },
+
+            {
+                insertOne:
+                  {
+                    document:{
+                        "_id": {
+                            "$oid": "670686ea4633d86fc6b6b70a"
+                          },
+                        invid:109,
+                        p_id :12,
+                        quantity:10,
+                        price:95000
+                    }
+                  }
+            },
+
+            {
+                        replaceOne:
+                          {
+                            filter :{invid:105},
+                            replacement :
+                              {
+                                p_id:8,
+                                quantity:40,
+                                price:5000,
+                                discount:200
+                              }
+                          }
+                    }
+
+
+])
+}
+catch(error){
+    print(error)
+}
+
+
+
+db.inventory.find()
