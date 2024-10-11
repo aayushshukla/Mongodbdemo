@@ -1,0 +1,15 @@
+use("mycompany")
+
+// mongodb will create a separate index entry for each value of array
+
+db.person.createIndex(
+    {
+        Hobbies:1
+    }
+)
+
+db.person.getIndexes()
+
+//db.person.find({},{Hobbies:1,_id:0})
+
+db.person.find({Hobbies:"Walk"},{}).explain()

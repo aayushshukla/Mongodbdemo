@@ -1,0 +1,22 @@
+use("mycompany")
+
+db.employeesinfo.drop("experience_1_gender_1")
+db.employeesinfo.createIndex({experience:1},
+    {
+        partialFilterExpression : {experience:{$gte:45}}
+    }
+)
+
+db.employeesinfo.getIndexes()
+
+db.employeesinfo.find({experience:{$gt:45}}).explain("executionStats")
+
+db.employeesinfo.getIndexes()
+
+db.employeesinfo.find({experience:{$lt:20}}).explain("executionStats")
+
+//db.employeesinfo.createIndex({experience:1},{unique:true})
+
+// on date time data
+
+//db.employeesinfo.createIndex({experience:1},{expiresAfterSeconds:3600})

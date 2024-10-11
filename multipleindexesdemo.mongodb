@@ -1,0 +1,27 @@
+// mongodb will take some sample documents and checks the performance 
+// which index is efficient it will set as Winning plan
+// it stores winning plan in cache and for next queries it use from cache
+
+// cache clears : after 1000  write operation 
+// index reset , nongo server is restarted 
+// other indexes are manipulated 
+
+use("mycompany")
+db.person.createIndex(
+    {
+        age:1,
+        
+    }
+)
+
+db.person.createIndex(
+    {
+        age:1,
+        gender:1
+    }
+)
+
+
+//db.person.find({age:25}).explain("executionStats")
+
+db.person.find({age:25,gender:"Female"}).explain("allPlansExecution")

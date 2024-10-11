@@ -1,0 +1,33 @@
+use("mycompany")
+// compund index
+// order of fields matters 
+db.employeesinfo.createIndex({
+    experience:1,
+    gender:1
+})
+// index  expeience_1_gender_1
+db.employeesinfo.getIndexes()
+
+db.employeesinfo.find(
+    {
+    experience:{$gte:35},
+    gender:"Female"
+}).explain("executionStats")
+
+
+db.employeesinfo.find(
+    {
+    experience:{$gte:35}
+   
+},{
+    _id:0,
+    email:1
+}).explain("executionStats")
+
+// it will not do index scan
+// it will do collscan
+// db.employeesinfo.find(
+//     {
+//     gender :"Male",
+   
+// }).explain("executionStats")

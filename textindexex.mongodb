@@ -1,0 +1,70 @@
+// there is single text index per collection 
+// it use stopwords, tokenization and stemming
+// it will check relevance 
+
+use("mycompany")
+
+//db.person.find({bio:"I code and play game"});
+
+// db.person.createIndex
+//  ({
+//     name:"text",
+//     bio:"text"
+//  })
+
+ db.person.getIndexes()
+
+//  db.person.find({
+//     $text:
+//       {
+//         $search:"code"
+//       }
+//  })
+
+//  db.person.find({
+//     $text:
+//       {
+//         $search:"code play games"
+//       }
+//  },
+//   {
+//      myscore:
+//        {
+//         $meta:"textScore"
+//        }
+//   }
+// ).sort({
+//     myscore: {
+//         $meta:"textScore"
+//        }
+// })
+
+//db.person.dropIndex("name_text_bio_text")
+//db.person.getIndexes()
+
+// db.person.createIndex
+//  ({
+//     name:"text",
+//     bio:"text"
+//  },
+// {
+//    weights:
+//      {
+//         name:1,
+//         bio:1100
+//      } 
+// })
+
+db.person.find({
+    $text:
+      {
+        $search:"youtube"
+      }
+ },
+  {
+     myscore:
+       {
+        $meta:"textScore"
+       }
+  }
+)

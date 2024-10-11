@@ -1,0 +1,29 @@
+// index make query processing more efficient 
+
+// when not to use index 
+//  1.  small collection  2. faster updates in documets 
+//  3. when queries are complexed (multiple fields )
+
+//db.collectionname.createIndex({feild:1})
+use("mycompany")
+db.employeesinfo.find({experience:{$lt:25}}).explain("executionStats")
+
+// creating index on basis of experience field
+db.employeesinfo.createIndex({experience:1})
+
+// check all indexes
+db.employeesinfo.getIndexes()
+
+db.employeesinfo.find({experience:{$lt:25}}).explain("executionStats")
+
+// dropping index
+//  db.collectionname.dropIndex(indexname)
+
+db.employeesinfo.dropIndex("experience_1");
+
+db.employeesinfo.getIndexes()
+
+// types of indexes
+// simple index
+// compound index
+// text index 
